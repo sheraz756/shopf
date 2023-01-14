@@ -6,3 +6,7 @@ find jobs.... category field,apply btn, double post , create a post form,dlt on 
 
 
 /pull lena ka bjy push krdia now this is not allow me to push any thing from vs code Updates were rejected because the tip of your current branch is behind
+ 
+
+
+ //new repo banani pari is ma kuch mt krna
