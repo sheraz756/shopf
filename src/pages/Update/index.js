@@ -35,17 +35,17 @@ const style = {
 };
 
 const index = ({handleClose}) => {
-    const [jobname, setjobname] = useState("");
-    const [shopname, setshopname] = useState("");
-    const [shoploc, setshoploc] = useState("");
-    const [workersReq, setworkersReq] = useState("");
-    const [salary, setsalary] = useState("");
-    const [timing, settiming] = useState("");
-    const [postimg, setpostimg] = useState("");
+    const [jobname, setjobname] = useState();
+    const [shopname, setshopname] = useState();
+    const [shoploc, setshoploc] = useState();
+    const [workersReq, setworkersReq] = useState();
+    const [salary, setsalary] = useState();
+    const [timing, settiming] = useState();
+    const [postimg, setpostimg] = useState();
     console.log(postimg)
-    const [age, setage] = useState("");
-    const [experience, setexperience] = useState("");
-    const [description, setdescription] = useState("");
+    const [age, setage] = useState();
+    const [experience, setexperience] = useState();
+    const [description, setdescription] = useState();
     // const JWTtoken = window.localStorage.getItem("JWTtoken");/
     const formData = new FormData()
     formData.append("postimg",postimg)
@@ -61,7 +61,7 @@ const index = ({handleClose}) => {
       Authorization: `Bearer ${JWTtoken}`,
     },
   };
-  async function update() {
+  async function update(id) {
     // if(!postimg||!jobname||!shopname||!shoploc||!workersReq||!salary||!timing)
     // {
     //   alert("please fill the fields")
@@ -72,7 +72,7 @@ const index = ({handleClose}) => {
     // }
     try {
       const check = await axios.put(
-        `http://localhost:5000/post/63c1d744ac421a216d8ef7d7`,
+        `http://localhost:5000/post/${id}`,
      formData,
      config,
         );

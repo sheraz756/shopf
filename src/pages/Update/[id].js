@@ -37,26 +37,26 @@ const style = {
 };
 
 const index = ({handleClose}) => {
-    const [jobname, setjobname] = useState("");
-    const [shopname, setshopname] = useState("");
-    const [shoploc, setshoploc] = useState("");
-    const [workersReq, setworkersReq] = useState("");
-    const [salary, setsalary] = useState("");
-    const [timing, settiming] = useState("");
-    const [postimg, setpostimg] = useState("");
+    const [jobname, setjobname] = useState();
+    const [shopname, setshopname] = useState();
+    const [shoploc, setshoploc] = useState();
+    const [workersReq, setworkersReq] = useState();
+    const [salary, setsalary] = useState();
+    const [timing, settiming] = useState();
+    const [postimg, setpostimg] = useState();
     // console.log(postimg)
-    const [age, setage] = useState("");
-    const [experience, setexperience] = useState("");
-    const [description, setdescription] = useState("");
+    const [age, setage] = useState();
+    const [experience, setexperience] = useState();
+    const [description, setdescription] = useState();
     // const JWTtoken = window.localStorage.getItem("JWTtoken");/
     const formData = new FormData()
     formData.append("postimg",postimg)
-    formData.append("jobname",jobname)
-    formData.append("shopname",shopname)
-    formData.append("shoploc",shoploc)
-    formData.append("workersReq",workersReq)
-    formData.append("salary",salary)
-    formData.append("timing",timing)
+    // formData.append("jobname",jobname)
+    // formData.append("shopname",shopname)
+    // formData.append("shoploc",shoploc)
+    // formData.append("workersReq",workersReq)
+    // formData.append("salary",salary)
+    // formData.append("timing",timing)
     const JWTtoken = window.localStorage.getItem("JWTtoken");
   const config = {
     headers: {
@@ -66,20 +66,21 @@ const index = ({handleClose}) => {
 const set = useParams();
   async function update(id) {
     console.log(set)
-    if(!postimg||!jobname||!shopname||!shoploc||!workersReq||!salary||!timing)
-    {
-      alert("please fill the fields")
-    }
-    else{
-      alert("record updated successfully")
-      Router.push(`/my_posts`)
-    }
+    // if(!postimg||!jobname||!shopname||!shoploc||!workersReq||!salary||!timing)
+    // {
+    //   alert("please fill the fields")
+    // }
+    // else{
+    //  
+    // }
     try {
       const check = await axios.put(
         `http://localhost:5000/post/${id}`,
-     formData,
+     {jobname,salary,age,shoploc,shopname,workersReq,timing},
      config,
         );
+        alert("record updated successfully")
+          Router.push(`/my_posts`)
         console.log(check)
       // navigate("/session-timed-out");
       // console.log(sendForm);
