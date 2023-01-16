@@ -110,7 +110,9 @@ async function update() {
       })
 
   }
- 
+  useEffect(() => {
+    getData();
+  }, [deleteuser]);
 
   const [data, setData] = useState([]);
   function getData() {
