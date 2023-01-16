@@ -216,11 +216,11 @@ async function update() {
                     overflow: "hidden",
                   }}
                 >
-                  <div>{eachdata.postimg}</div>
-                  {/* <img
+                  {/* <div>{eachdata.postimg}</div> */}
+                  <img
                     style={{ maxWidth: "100%", minHeight: "100%" }}
                     src={`http://localhost:5000/${eachdata.postimg}`}
-                  /> */}
+                  />
                 </Box>
               </CardMedia>
               <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>

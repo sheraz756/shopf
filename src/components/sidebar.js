@@ -26,10 +26,10 @@ const items = [
     icon: <WorkIcon fontSize="small" />,
     title: "Find Jobs",
   },
-  {
-    href: "/Update",
+  // {
+  //   href: "/Update",
   
-  },
+  // },
   
   {
     href: "/my_posts",
