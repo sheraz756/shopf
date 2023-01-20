@@ -21,9 +21,11 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FlagIcon from "@mui/icons-material/Flag";
 import { Box, Button, Grid } from "@mui/material";
+import axios from "axios";
 
 export default function PostCard({ post }) {
   const router = useRouter();
+  const JWTtoken = window.localStorage.getItem("JWTtoken");
   const {
     img,
     jobname,
@@ -40,9 +42,31 @@ export default function PostCard({ post }) {
     age,
     experience,
     userpic,
-    postimg,
+    userimg,
   } = post;
-  console.log("POST", post);
+  async function applyjob(){
+    try {
+      const check = await axios.post(
+        "http://localhost:5000/applyjob",
+       
+        {
+          headers: {
+            Authorization: `Bearer ${JWTtoken}`,
+          },
+        },
+        );
+        console.log(check)
+        alert("job posted successfully")
+        router.push(`/my_posts`)
+      // navigate("/session-timed-out");
+      // console.log(sendForm);
+    } catch (error) {
+      console.log("Error", error);
+    }
+  }
+  
+
+  // console.log("POST", post);/
   return (
     <Card
       sx={{
@@ -56,7 +80,7 @@ export default function PostCard({ post }) {
             <Avatar
               sx={{ bgcolor: "primary" }}
               aria-label="user-Pic"
-              src={userpic}
+              src={`http://localhost:5000/${userimg}`}
               alt={username}
             />
           ) : (
@@ -68,6 +92,7 @@ export default function PostCard({ post }) {
         // action={<DotMenu options={[{ label: "Report", icon: <FlagIcon /> }]} />}
         title={username}
         subheader={user_email}
+        
       />
       <CardContent>
         <Box>
@@ -177,16 +202,10 @@ export default function PostCard({ post }) {
           </Typography>
         </Box>
       </CardContent>
-      <CardMedia
-        component="img"
-        height="254"
-        image={
-          postimg
-            ? postimg
-            : "https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-        }
-        alt={shopname}
-      />
+      <img
+                    style={{ maxWidth: "100%", minHeight: "100%" }}
+                    src={`http://localhost:5000/${post.postimg}`}
+                  />
 
       <CardActions disableSpacing>
         <Button
@@ -200,7 +219,7 @@ export default function PostCard({ post }) {
               background: "rgba(222, 121, 64, 0.3)",
             },
           }}
-          onClick={() => router.push(`/Apply`)}
+          onClick={applyjob}
         >
           Apply
         </Button>

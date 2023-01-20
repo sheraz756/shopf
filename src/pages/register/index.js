@@ -20,6 +20,7 @@ import { useState } from "react";
 import DateInput from "../../components/common/menu/dateInput";
 import { bodyStreamToNodeStream } from "next/dist/server/body-streams";
 import { Route } from "@mui/icons-material";
+import axios from 'axios'
 
 const Register = () => {
   const router = useRouter();
@@ -27,66 +28,60 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [cpassword, setcpassword] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
+  const [phoneno, setphoneno] = useState("");
   const [qualification, setQualification] = useState("");
   const [dob, setDob] = useState("");
+  const [userimg, setuserimg] = useState("");
+  const formData = new FormData()
+  formData.append("userimg",userimg)
+  formData.append("name",name)
+  formData.append("email",email)
+  formData.append("password",password)
+  formData.append("cpassword",cpassword)
+  formData.append("city",city)
+  formData.append("address",address)
+  formData.append("phoneno",phoneno)
+  formData.append("qualification",qualification)
+  formData.append("dob",dob)
 
-  async function register(body) {
+  async function register() {
+  
     try {
-      const response = await fetch("http://localhost:5000/register", {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(body),
-      });
-
-      if (response.status >= 200 && response.status <= 299) {
-        console.log(response)
+      const check = await axios.post(
+        "http://localhost:5000/register",
+     formData,
+     
+        );
+        console.log(check)
         alert('User Registered')
         setIsLoginFormOpen(true);
-      }
-    } catch (response) {
-      if (response.status >= 400 && response.status <= 499) {
-        console.log(`Error!, ${response.data.error}`);
-      }
-      if (response.status >= 500 && response.status <= 599) {
-        console.log(`Server Error! try again later.`);
-      }
+        // router.push(`/my_posts`)
+      // navigate("/session-timed-out");
+      // console.log(sendForm);
+    } catch (error) {
+      console.log("Error", error);
     }
   }
-  function handleRegister(e) {
-    e.preventDefault();
-    const body = {
-      // email: "nabeel1699@gmail.com",
-      // password: "test@123",
-      // cpassword: "test@123",
-      // name: "Nabeel Ahmed",
-      // city: "lahore",
-      // dob: "2-4-2001",
-      // address: "multan",
-      // phoneno: "45666",
-      // qualification: "bsit",
-      name,
-      email,
-      password,
-      city,
-      address,
-      qualification,
-      dob,
-      phoneno: phoneNo,
-      cpassword: confirmPassword,
-    };
-    register(body);
-  }
+
+  // function handleRegister(e) {
+  //   e.preventDefault();
+  //   const body = {
+
+  //     name,
+  //     email,
+  //     password,
+  //     city,
+  //     address,
+  //     qualification,
+  //     dob,
+  //     phoneno: phoneNo,
+  //     cpassword: confirmPassword,
+  //   };
+  //   register(body);
+  // }
   return (
     <>
       <Head>
@@ -163,8 +158,8 @@ const Register = () => {
             <PhoneInput
               fullWidth
               country={"pk"}
-              value={phoneNo}
-              onChange={(phone) => setPhoneNo(phone)}
+              value={phoneno}
+              onChange={(phone) => setphoneno(phone)}
             />
             <TextField
               fullWidth
@@ -178,11 +173,11 @@ const Register = () => {
             <TextField
               fullWidth
               margin="normal"
-              name="confirm_password"
+              name="password"
               label="Confirm Password"
               type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={cpassword}
+              onChange={(e) => setcpassword(e.target.value)}
             />
             <Box
               sx={{
@@ -201,7 +196,8 @@ const Register = () => {
                 </NextLink>
               </Typography>
             </Box>
-            <Button fullWidth variant="contained" type="submit" onClick={handleRegister}>
+            <input type="file" onChange={(e) => setuserimg(e.target.files[0])} />
+            <Button fullWidth variant="contained"  onClick={register}>
               Register
             </Button>
             <Typography color="textSecondary" variant="body2">

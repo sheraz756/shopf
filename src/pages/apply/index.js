@@ -199,7 +199,7 @@ const Apply =
                     Cancel
                   </Button>
                   {/* <button onClick={editUserDetails}>post</button> */}
-                  <Button variant="contained">Apply</Button>
+                  <Button variant="contained" >Apply</Button>
                 </Stack>
               </Grid>
             </Grid>
