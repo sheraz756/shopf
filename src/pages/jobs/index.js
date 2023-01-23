@@ -19,6 +19,7 @@ function Page() {
   const JWTtoken = window.localStorage.getItem("JWTtoken");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
+  
   async function getAllPosts() {
     try {
       const response = await fetch("http://localhost:5000/posts", {
@@ -43,6 +44,7 @@ function Page() {
           ...new Set(
             data.AllPosts.map((job) => {
               return job.jobname;
+              // return job.shopname;
             })
           ),
         ];

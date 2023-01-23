@@ -20,8 +20,8 @@ const Page = () => (
       }}
     >
       <Container maxWidth="xl">
-        <Card sx={{ p: 4 }}>
-          <Box
+         {/* <Card sx={{ p: 4 }}> */}
+         {/* <Box
             sx={{
               minHeight: "40vh",
               position: "relative",
@@ -33,8 +33,8 @@ const Page = () => (
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
-          >
-            <Avatar
+          > */}
+            {/* <Avatar
               sx={{
                 height: 120,
                 width: 120,
@@ -49,15 +49,15 @@ const Page = () => (
               }}
             >
               H
-            </Avatar>
+            </Avatar> */}
             {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
-          </Box>
+          {/* </Box> */}
           <CardContent>
             <Box sx={{ mt: 12 }}>
               <EditForm />
             </Box>
           </CardContent>
-        </Card>
+        {/* </Card>//</Box> */}
       </Container>
     </Box>
   </>

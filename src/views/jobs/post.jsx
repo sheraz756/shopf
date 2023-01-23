@@ -1,4 +1,4 @@
-import * as React from "react";
+import  React,{useEffect,useState} from "react";
 import { useRouter } from "next/router";
 import DotMenu from "./menu/menu";
 
@@ -22,10 +22,31 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FlagIcon from "@mui/icons-material/Flag";
 import { Box, Button, Grid } from "@mui/material";
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 export default function PostCard({ post }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [userimg, setuserimg] = useState("");
+  const [dob, setDob] = useState();
+  useEffect(() => {
+    const token = window.localStorage.getItem("JWTtoken");
+    var { _doc } = jwt_decode(token);
+    console.log({ _doc });
+    setName(_doc.name);
+    setPhone(_doc.phoneno);
+    setEmail(_doc.email);
+    setAddress(_doc.address);
+    setQualification(_doc.qualification);
+    setuserimg(_doc.userimg);
+    setDob(dob);
+    // moment().format("MMMM Do YYYY, h:mm:ss a");
+  }, []);
   const router = useRouter();
-  const JWTtoken = window.localStorage.getItem("JWTtoken");
+  const token = window.localStorage.getItem("JWTtoken");
+  var { _doc } = jwt_decode(token);
   const {
     img,
     jobname,
@@ -42,31 +63,37 @@ export default function PostCard({ post }) {
     age,
     experience,
     userpic,
-    userimg,
+   
   } = post;
   async function applyjob(){
     try {
       const check = await axios.post(
         "http://localhost:5000/applyjob",
-       
+     
+         post.user_email,
+         post.username,
+         post.jobname,
+         post.shoploc,
+         post.salary,
+
+         
+
         {
           headers: {
-            Authorization: `Bearer ${JWTtoken}`,
+            Authorization: `Bearer ${token}`,
           },
         },
         );
         console.log(check)
-        alert("job posted successfully")
-        router.push(`/my_posts`)
-      // navigate("/session-timed-out");
-      // console.log(sendForm);
+        alert("Apply successfully")
+   
     } catch (error) {
       console.log("Error", error);
     }
   }
   
 
-  // console.log("POST", post);/
+
   return (
     <Card
       sx={{
@@ -80,7 +107,7 @@ export default function PostCard({ post }) {
             <Avatar
               sx={{ bgcolor: "primary" }}
               aria-label="user-Pic"
-              src={`http://localhost:5000/${userimg}`}
+              src={`http://localhost:5000/${userpic}`}
               alt={username}
             />
           ) : (

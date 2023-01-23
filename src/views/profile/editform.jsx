@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
+import Head from "next/head";
 
+import Avatar from "@mui/material/Avatar";
+// import { Box,   Grid } from "@mui/material";
 // mui imports
-import { Box, Button, Grid, InputLabel, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, InputLabel, Stack, TextField, Card,CardContent,Container, Typography } from "@mui/material";
 // import { useEffect } from "react";
 import DateInput from "../../components/common/menu/dateInput";
 import dayjs from "dayjs";
@@ -15,6 +18,7 @@ const EdithtmlForm = () => {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [qualification, setQualification] = useState("");
+  const [userimg, setuserimg] = useState("");
   const [dob, setDob] = useState();
 
   useEffect(() => {
@@ -26,14 +30,57 @@ const EdithtmlForm = () => {
     setEmail(_doc.email);
     setAddress(_doc.address);
     setQualification(_doc.qualification);
+    setuserimg(_doc.userimg);
     setDob(dob);
     // moment().format("MMMM Do YYYY, h:mm:ss a");
   }, []);
 
   return (
+    
     <Box>
+      <Container maxWidth="xl">
+        <Card sx={{ p: 4 }}>
+          <Box
+            sx={{
+              minHeight: "40vh",
+              position: "relative",
+              borderTopLeftRadius: 24,
+              borderTopRightRadius: 24,
+              backgroundImage:`url(http://localhost:5000/${userimg})`,
+              backgroundPosition: "top left",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <Avatar
+              sx={{
+                height: 120,
+                width: 120,
+                position: "absolute",
+                bottom: 0,
+                left: { xs: "50%", sm: "10%", md: "5%", lg: "3%", xl: "2%" },
+                transform: {
+                  xs: "translate(-50%,50%)",
+                  md: "translate(-30%,50%)",
+                  lg: "translate(0%,50%)",
+                },
+              }}
+            >
+            <img src={`http://localhost:5000/${userimg}`} alt="" />
+            </Avatar>
+            {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
+          </Box>
+          <CardContent>
+            <Box sx={{ mt: 12 }}>
+              {/* <EditForm />/ */}
+            </Box>
+          </CardContent>
+        </Card>
+      </Container>
       <Grid container spacing={6}>
+        
         <Grid item xs={12}>
+        
           <Stack
             direction={{ sm: "row" }}
             spacing={2}
@@ -47,10 +94,12 @@ const EdithtmlForm = () => {
             </Typography>
             <Button variant="contained" component="label" sx={{ order: 1 }}>
               Upload File
-              <input type="file" hidden />
+              
+              {/* <input type="file" value={userimg} /> */}
             </Button>
           </Stack>
         </Grid>
+        
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={12} md={4} sx={{ alignSelf: "center" }}>
@@ -165,6 +214,7 @@ const EdithtmlForm = () => {
           <Stack direction="row" spacing={2} sx={{ justifyContent: "flex-end" }}>
             <Button variant="outlined">Cancel</Button>
             <Button variant="contained">Save</Button>
+            
           </Stack>
         </Grid>
       </Grid>
