@@ -1,4 +1,4 @@
-import  React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import DotMenu from "./menu/menu";
 
@@ -25,9 +25,11 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 export default function PostCard({ post }) {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  // const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
+  const [phoneno, setphoneno] = useState("");
   const [qualification, setQualification] = useState("");
   const [userimg, setuserimg] = useState("");
   const [dob, setDob] = useState();
@@ -36,9 +38,10 @@ export default function PostCard({ post }) {
     var { _doc } = jwt_decode(token);
     console.log({ _doc });
     setName(_doc.name);
-    setPhone(_doc.phoneno);
+    setphoneno(_doc.phoneno);
     setEmail(_doc.email);
     setAddress(_doc.address);
+    setCity(_doc.city);
     setQualification(_doc.qualification);
     setuserimg(_doc.userimg);
     setDob(dob);
@@ -55,45 +58,41 @@ export default function PostCard({ post }) {
     shopname,
     timing,
     user_id,
+    user_email,
     username,
     workersReq,
     liked,
     description,
-    user_email,
+    receiverEmail,
     age,
     experience,
     userpic,
-   
   } = post;
-  async function applyjob(){
+  async function applyjob() {
     try {
       const check = await axios.post(
         "http://localhost:5000/applyjob",
-     
-         post.user_email,
-         post.username,
-         post.jobname,
-         post.shoploc,
-         post.salary,
-
-         
+        //  {"receiverEmail": "abc13@gmail.com",},
+        // post,
+        { receiverEmail, name, email, address, qualification, dob, city, phoneno },
 
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        );
-        console.log(check)
-        alert("Apply successfully")
-   
+        }
+      );
+      console.log(check);
+      alert("Apply successfully");
+      // router.push(`/my_posts`)
+      // navigate("/session-timed-out");
+      // console.log(sendForm);
     } catch (error) {
       console.log("Error", error);
     }
   }
-  
 
-
+  // console.log("POST", post);/
   return (
     <Card
       sx={{
@@ -118,8 +117,8 @@ export default function PostCard({ post }) {
         }
         // action={<DotMenu options={[{ label: "Report", icon: <FlagIcon /> }]} />}
         title={username}
-        subheader={user_email}
-        
+        subheader={receiverEmail}
+        // subheader1={user_email}
       />
       <CardContent>
         <Box>
@@ -229,10 +228,13 @@ export default function PostCard({ post }) {
           </Typography>
         </Box>
       </CardContent>
-      <img
-                    style={{ maxWidth: "100%", minHeight: "100%" }}
-                    src={`http://localhost:5000/${post.postimg}`}
-                  />
+
+      <CardMedia
+        component="img"
+        height="254"
+        image={`http://localhost:5000/${post.postimg}`}
+        alt={shopname}
+      />
 
       <CardActions disableSpacing>
         <Button

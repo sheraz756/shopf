@@ -17,7 +17,7 @@ const Page = () => (
     >
       <Container maxWidth="xl">
         <Grid container spacing={4}>
-          {[1, 2, 4, 5, 6, 7, 8, 9].map((item) => {
+          {[1].map((item) => {
             return (
               <Grid item key={item} xs={12} md={6} lg={4} sx={{ alignItems: "start" }}>
                 <Post />

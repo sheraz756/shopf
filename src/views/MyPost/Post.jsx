@@ -34,7 +34,7 @@ const Post = ({handleClose}) => {
   const [salary, setsalary] = useState("");
   const [timing, settiming] = useState("");
   const [postimg, setpostimg] = useState("");
-  console.log(postimg)
+  // console.log(postimg)
   const [age, setage] = useState("");
   const [experience, setexperience] = useState("");
   const [description, setdescription] = useState("");
@@ -111,7 +111,7 @@ async function update() {
 
   }
   useEffect(() => {
-    getData();
+    getData()
   }, [deleteuser]);
 
   const [data, setData] = useState([]);
@@ -219,10 +219,18 @@ async function update() {
                   }}
                 >
                   {/* <div>{eachdata.postimg}</div> */}
-                  <img
+                  {/* <img
                     style={{ maxWidth: "100%", minHeight: "100%" }}
                     src={`http://localhost:5000/${eachdata.postimg}`}
-                  />
+                  /> */}
+                  <CardMedia
+        component="img"
+        height="254"
+        image={
+         `http://localhost:5000/${eachdata.postimg}`
+        }
+        alt={shopname}
+      />
                 </Box>
               </CardMedia>
               <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
