@@ -67,7 +67,7 @@ export default function JobPostModal({ open, handleClose }) {
 }
     try {
       const check = await axios.post(
-        "http://localhost:5000/postjob",
+        "https://bbuttshopjob.herokuapp.com/postjob",
      formData,
         {
           headers: {

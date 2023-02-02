@@ -58,6 +58,7 @@ const Post = ({handleClose}) => {
     overflowY: "auto",
     boxShadow: 24,
     borderRadius: 1,
+    padding:"50px",
     p: 4,
   };
   const [showModal, setShowModal] = useState(false);
@@ -75,7 +76,7 @@ async function update() {
   // }
   try {
     const check = await axios.put(
-      `http://localhost:5000/post/63c1d744ac421a216d8ef7d7`,
+      `https://bbuttshopjob.herokuapp.com/post/63c1d744ac421a216d8ef7d7`,
    formData,
    config,
       );
@@ -100,7 +101,7 @@ async function update() {
 
     axios
 
-      .delete(`http://localhost:5000/post/${id}`,config)
+      .delete(`https://bbuttshopjob.herokuapp.com/post/${id}`,config)
 
       .then(response => {
         setDataa(response.data.id)
@@ -116,7 +117,7 @@ async function update() {
 
   const [data, setData] = useState([]);
   function getData() {
-    axios.get("http://localhost:5000/myposts", config).then((res) => {
+    axios.get("https://bbuttshopjob.herokuapp.com/myposts", config).then((res) => {
       console.log(res.data);
       setData(res.data);
     });
@@ -142,6 +143,7 @@ async function update() {
               >
         
               <CardHeader
+        
                 action={
                   <IconButton aria-label="settings">
                     <MoreVertIcon />
@@ -227,7 +229,7 @@ async function update() {
         component="img"
         height="254"
         image={
-         `http://localhost:5000/${eachdata.postimg}`
+         `https://bbuttshopjob.herokuapp.com/${eachdata.postimg}`
         }
         alt={shopname}
       />

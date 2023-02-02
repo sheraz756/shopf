@@ -4,6 +4,10 @@ import { useRouter } from "next/router";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import LoginFormModal from '../../views/loginForm/LoginFormModel'
+import { useParams } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
+
 // mui imports
 import {
   Box,
@@ -16,15 +20,17 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DateInput from "../../components/common/menu/dateInput";
 import { bodyStreamToNodeStream } from "next/dist/server/body-streams";
 import { Route } from "@mui/icons-material";
 import axios from 'axios'
 
 const Register = () => {
+    const set = useParams();
+
   const router = useRouter();
-  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+//   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);/
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +41,7 @@ const Register = () => {
   const [qualification, setQualification] = useState("");
   const [dob, setDob] = useState("");
   const [userimg, setuserimg] = useState("");
+  const [id, setid] = useState("");
   const formData = new FormData()
   formData.append("userimg",userimg)
   formData.append("name",name)
@@ -46,25 +53,62 @@ const Register = () => {
   formData.append("phoneno",phoneno)
   formData.append("qualification",qualification)
   formData.append("dob",dob)
-
-  async function register() {
+  const JWTtoken = window.localStorage.getItem("JWTtoken");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${JWTtoken}`,
+    },
+  };
+  useEffect(() => {
+    const token = window.localStorage.getItem("JWTtoken");
+    var { _doc } = jwt_decode(token);
   
+    setid(_doc._id);
+ 
+    // moment().format("MMMM Do YYYY, h:mm:ss a");
+  }, []);
+  async function update(id) {
+    console.log(set)
+    // if(!postimg||!jobname||!shopname||!shoploc||!workersReq||!salary||!timing)
+    // {
+    //   alert("please fill the fields")
+    // }
+    // else{
+    //  
+    // }
     try {
-      const check = await axios.post(
-        "https://bbuttshopjob.herokuapp.com/register",
+      const check = await axios.put(
+        `https://bbuttshopjob.herokuapp.com/user/${id}`,
      formData,
-     
+     config,
         );
+        alert("record updated successfully")
+        //   Router.push(`/my_posts`)
         console.log(check)
-        alert('User Registered')
-        setIsLoginFormOpen(true);
-        // router.push(`/my_posts`)
       // navigate("/session-timed-out");
       // console.log(sendForm);
     } catch (error) {
       console.log("Error", error);
     }
   }
+//   async function register() {
+  
+//     try {
+//       const check = await axios.post(
+//         "http://localhost:5000/register",
+//      formData,
+     
+//         );
+//         console.log(check)
+//         alert('User Registered')
+//         setIsLoginFormOpen(true);
+//         // router.push(`/my_posts`)
+//       // navigate("/session-timed-out");
+//       // console.log(sendForm);
+//     } catch (error) {
+//       console.log("Error", error);
+//     }
+//   }
 
   // function handleRegister(e) {
   //   e.preventDefault();
@@ -197,7 +241,7 @@ const Register = () => {
               </Typography>
             </Box>
             <input type="file" onChange={(e) => setuserimg(e.target.files[0])} />
-            <Button fullWidth variant="contained"  onClick={register}>
+            <Button fullWidth variant="contained" onClick={()=>update(id)} >
               Register
             </Button>
             <Typography color="textSecondary" variant="body2">
@@ -211,7 +255,6 @@ const Register = () => {
           </form>
         </Container>
       </Box>
-      <LoginFormModal open={isLoginFormOpen} />
     </>
   );
 };

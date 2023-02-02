@@ -24,7 +24,7 @@ import axios from 'axios'
 
 const Register = () => {
   const router = useRouter();
-  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+//   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);/
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,24 +47,48 @@ const Register = () => {
   formData.append("qualification",qualification)
   formData.append("dob",dob)
 
-  async function register() {
-  
+  async function update(id) {
+    console.log(set)
+    // if(!postimg||!jobname||!shopname||!shoploc||!workersReq||!salary||!timing)
+    // {
+    //   alert("please fill the fields")
+    // }
+    // else{
+    //  
+    // }
     try {
-      const check = await axios.post(
-        "https://bbuttshopjob.herokuapp.com/register",
+      const check = await axios.put(
+        `https://bbuttshopjob.herokuapp.com/user/${id}`,
      formData,
-     
+     config,
         );
+        alert("record updated successfully")
+        //   Router.push(`/my_posts`)
         console.log(check)
-        alert('User Registered')
-        setIsLoginFormOpen(true);
-        // router.push(`/my_posts`)
       // navigate("/session-timed-out");
       // console.log(sendForm);
     } catch (error) {
       console.log("Error", error);
     }
   }
+//   async function register() {
+  
+//     try {
+//       const check = await axios.post(
+//         "http://localhost:5000/register",
+//      formData,
+     
+//         );
+//         console.log(check)
+//         alert('User Registered')
+//         setIsLoginFormOpen(true);
+//         // router.push(`/my_posts`)
+//       // navigate("/session-timed-out");
+//       // console.log(sendForm);
+//     } catch (error) {
+//       console.log("Error", error);
+//     }
+//   }
 
   // function handleRegister(e) {
   //   e.preventDefault();
@@ -197,7 +221,7 @@ const Register = () => {
               </Typography>
             </Box>
             <input type="file" onChange={(e) => setuserimg(e.target.files[0])} />
-            <Button fullWidth variant="contained"  onClick={register}>
+            <Button fullWidth variant="contained" onClick={()=>update(id)} >
               Register
             </Button>
             <Typography color="textSecondary" variant="body2">
@@ -211,7 +235,7 @@ const Register = () => {
           </form>
         </Container>
       </Box>
-      <LoginFormModal open={isLoginFormOpen} />
+      {/* <LoginFormModal open={isLoginFormOpen} />/ */}
     </>
   );
 };

@@ -75,7 +75,7 @@ const set = useParams();
     // }
     try {
       const check = await axios.put(
-        `http://localhost:5000/post/${id}`,
+        `https://bbuttshopjob.herokuapp.com/post/${id}`,
      {jobname,salary,age,shoploc,shopname,workersReq,timing},
      config,
         );

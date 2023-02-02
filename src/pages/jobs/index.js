@@ -22,7 +22,7 @@ function Page() {
   
   async function getAllPosts() {
     try {
-      const response = await fetch("http://localhost:5000/posts", {
+      const response = await fetch("https://bbuttshopjob.herokuapp.com/posts", {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
