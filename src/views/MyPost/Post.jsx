@@ -137,6 +137,7 @@ async function update() {
               sx={{
                 px: 2,
                 border: "0.5px solid",
+
                 borderColor: (theme) => theme.palette.action.focus,
                 boxShadow: (theme) => theme.shadows[0],
               }}

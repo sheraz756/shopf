@@ -32,7 +32,7 @@ export default function PostCard({ post }) {
   const [phoneno, setphoneno] = useState("");
   const [qualification, setQualification] = useState("");
   const [userimg, setuserimg] = useState("");
-  const [dob, setDob] = useState();
+  // const [dob, setDob] = useState();
   useEffect(() => {
     const token = window.localStorage.getItem("JWTtoken");
     var { _doc } = jwt_decode(token);
@@ -44,8 +44,7 @@ export default function PostCard({ post }) {
     setCity(_doc.city);
     setQualification(_doc.qualification);
     setuserimg(_doc.userimg);
-    setDob(dob);
-    // moment().format("MMMM Do YYYY, h:mm:ss a");
+
   }, []);
   const router = useRouter();
   const token = window.localStorage.getItem("JWTtoken");

@@ -78,7 +78,7 @@ const Register = () => {
     // }
     try {
       const check = await axios.put(
-        `https://bbuttshopjob.herokuapp.com/user/${id}`,
+        `http://localhost:5000/user/${id}`,
      formData,
      config,
         );

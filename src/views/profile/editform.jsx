@@ -22,7 +22,7 @@ const EdithtmlForm = () => {
   const [qualification, setQualification] = useState("");
   const [userimg, setuserimg] = useState("");
   const [id, setid] = useState("");
-  const [dob, setDob] = useState();
+  // const [dob, setDob] = useState();
 
   useEffect(() => {
     const token = window.localStorage.getItem("JWTtoken");
@@ -35,7 +35,7 @@ const EdithtmlForm = () => {
     setQualification(_doc.qualification);
     setuserimg(_doc.userimg);
     setid(_doc._id);
-    setDob(dob);
+    // setDob(dob);
     // moment().format("MMMM Do YYYY, h:mm:ss a");
   }, []);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")) || {});
