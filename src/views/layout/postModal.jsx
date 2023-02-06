@@ -67,7 +67,7 @@ export default function JobPostModal({ open, handleClose }) {
 }
     try {
       const check = await axios.post(
-        "http://localhost:5000/postjob",
+        "https://bbuttshopjob.herokuapp.com/postjob",
      formData,
         {
           headers: {
@@ -77,7 +77,7 @@ export default function JobPostModal({ open, handleClose }) {
         );
         console.log(check)
         alert("job posted successfully")
-        // router.push(`/my_posts`)
+        router.push(`/my_posts`)
       // navigate("/session-timed-out");
       // console.log(sendForm);
     } catch (error) {

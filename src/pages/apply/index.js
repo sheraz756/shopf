@@ -33,7 +33,7 @@ const style = {
   p: 4,
 };
 
-const Apply =
+const Page =
   () =>
   ({ open, handleClose }) => {
     // const router = useRouter();
@@ -209,4 +209,4 @@ const Apply =
     );
   };
 Page.getLayout = (Update) => <Layout>{Apply}</Layout>;
-export default Apply;
+export default Page;
